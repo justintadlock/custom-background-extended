@@ -96,7 +96,7 @@ class CB_Custom_Backgrounds_Admin {
 		$color = trim( get_post_meta( $post->ID, 'cb_custom_background_color', true ), '#' );
 
 		/* Get the background image attachment ID. */
-		$attachment_id = get_post_meta( $post->ID, 'cb_custom_background_image', true );
+		$attachment_id = get_post_meta( $post->ID, 'cb_custom_background_image_id', true );
 
 		/* If an attachment ID was found, get the image source. */
 		if ( !empty( $attachment_id ) )
@@ -229,7 +229,7 @@ class CB_Custom_Backgrounds_Admin {
 
 		$meta = array(
 			'cb_custom_background_color'      => trim( strip_tags( $_POST['cb-background-color'] ), '#' ),
-			'cb_custom_background_image'      => $image_id,
+			'cb_custom_background_image_id'   => $image_id,
 			'cb_custom_background_repeat'     => $repeat,
 			'cb_custom_background_position_x' => $position_x,
 		//	'cb_custom_background_position_y' => strip_tags( $_POST['cb-background-position-y'] ),

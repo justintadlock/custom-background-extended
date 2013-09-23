@@ -98,7 +98,7 @@ class CB_Custom_Backgrounds_Filter {
 
 		if ( is_singular() ) {
 
-			$attachment_id = get_post_meta( get_queried_object_id(), 'cb_custom_background_image', true );
+			$attachment_id = get_post_meta( get_queried_object_id(), 'cb_custom_background_image_id', true );
 
 			if ( !empty( $attachment_id ) ) {
 				// todo - need custom image size
