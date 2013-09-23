@@ -12,6 +12,15 @@ class CB_Custom_Backgrounds_Admin {
 	private static $instance;
 
 	/**
+	 * Whether the theme has a custom backround callback for 'wp_head' output.
+	 *
+	 * @since  0.1.0
+	 * @access public
+	 * @var    bool
+	 */
+	public $theme_has_callback = false;
+
+	/**
 	 * Plugin setup.
 	 *
 	 * @since  0.1.0
@@ -33,6 +42,12 @@ class CB_Custom_Backgrounds_Admin {
 		/* If the current theme doesn't support custom backgrounds, bail. */
 		if ( !current_theme_supports( 'custom-background' ) )
 			return;
+
+		/* Get the 'wp_head' callback. */
+		$wp_head_callback = get_theme_support( 'custom-background', 'wp-head-callback' );
+
+		/* Checks if the theme has set up a custom callback. */
+		$this->theme_has_callback = empty( $wp_head_callback ) || '_custom_background_cb' === $wp_head_callback ? false : true;
 
 		/* Load scripts and styles. */
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
@@ -108,12 +123,14 @@ class CB_Custom_Backgrounds_Admin {
 		/* Get the background image settings. */
 		$repeat     = get_post_meta( $post->ID, 'cb_custom_background_repeat',     true );
 		$position_x = get_post_meta( $post->ID, 'cb_custom_background_position_x', true );
+		$position_y = get_post_meta( $post->ID, 'cb_custom_background_position_y', true );
 		$attachment = get_post_meta( $post->ID, 'cb_custom_background_attachment', true );
 
 		/* Get theme mods. */
-		$mod_repeat     = get_theme_mod( 'background_repeat' );
-		$mod_position_x = get_theme_mod( 'background_position_x' );
-		$mod_attachment = get_theme_mod( 'background_attachment' );
+		$mod_repeat     = get_theme_mod( 'background_repeat',     'repeat' );
+		$mod_position_x = get_theme_mod( 'background_position_x', 'left'   );
+		$mod_position_y = get_theme_mod( 'background_position_y', 'top'    );
+		$mod_attachment = get_theme_mod( 'background_attachment', 'scroll' );
 
 		/**
 		 * Make sure values are set for the image options.  This should always be set so that we can
@@ -124,22 +141,30 @@ class CB_Custom_Backgrounds_Admin {
 		 */
 		$repeat     = !empty( $repeat )     ? $repeat     : $mod_repeat;
 		$position_x = !empty( $position_x ) ? $position_x : $mod_position_x;
+		$position_x = !empty( $position_y ) ? $position_y : $mod_position_y;
 		$attachment = !empty( $attachment ) ? $attachment : $mod_attachment;
 
 		/* Set up an array of allowed values for the repeat option. */
 		$repeat_options = array( 
-			'no-repeat' => __( 'No Repeat',         'custom-backgrounds' ), 
-			'repeat'    => __( 'Repeat',            'custom-backgrounds' ),
-			'repeat-x'  => __( 'Horizontal Repeat', 'custom-backgrounds' ),
-			'repeat-y'  => __( 'Vertical Repeat',   'custom-backgrounds' ),
-		); 
+			'no-repeat' => __( 'No Repeat',           'custom-backgrounds' ), 
+			'repeat'    => __( 'Repeat',              'custom-backgrounds' ),
+			'repeat-x'  => __( 'Repeat Horizontally', 'custom-backgrounds' ),
+			'repeat-y'  => __( 'Repeat Vertically',   'custom-backgrounds' ),
+		);
 
 		/* Set up an array of allowed values for the position-x option. */
 		$position_x_options = array( 
 			'left'   => __( 'Left',   'custom-backgrounds' ), 
 			'right'  => __( 'Right',  'custom-backgrounds' ),
 			'center' => __( 'Center', 'custom-backgrounds' ),
-		); 
+		);
+
+		/* Set up an array of allowed values for the position-x option. */
+		$position_y_options = array( 
+			'top'    => __( 'Top',    'custom-backgrounds' ), 
+			'bottom' => __( 'Bottom', 'custom-backgrounds' ),
+			'center' => __( 'Center', 'custom-backgrounds' ),
+		);
 
 		/* Set up an array of allowed values for the attachment option. */
 		$attachment_options = array( 
@@ -189,6 +214,17 @@ class CB_Custom_Backgrounds_Admin {
 				</select>
 			</p>
 
+			<?php if ( !$this->theme_has_callback ) { ?>
+			<p>
+				<label for="cb-background-position-y"><?php _e( 'Vertical Position', 'custom-backgrounds' ); ?></label>
+				<select class="widefat" name="cb-background-position-y" id="cb-background-position-y">
+				<?php foreach( $position_y_options as $option => $label ) { ?>
+					<option value="<?php echo esc_attr( $option ); ?>" <?php selected( $position_y, $option ); ?> /><?php echo esc_html( $label ); ?></option>
+				<?php } ?>
+				</select>
+			</p>
+			<?php } ?>
+
 			<p>
 				<label for="cb-background-attachment"><?php _e( 'Attachment', 'custom-backgrounds' ); ?></label>
 				<select class="widefat" name="cb-background-attachment" id="cb-background-attachment">
@@ -226,12 +262,11 @@ class CB_Custom_Backgrounds_Admin {
 		$image_id = absint( $_POST['cb-background-image'] );
 
 		if ( 0 >= $image_id ) {
-			$repeat     = '';
-			$position_x = '';
-			$attachment = '';
+			$repeat = $position_x = $position_y = $attachment = '';
 		} else {
-			$repeat     = strip_tags( $_POST['cb-background-repeat'] );
+			$repeat     = strip_tags( $_POST['cb-background-repeat']     );
 			$position_x = strip_tags( $_POST['cb-background-position-x'] );
+			$position_y = strip_tags( $_POST['cb-background-position-y'] );
 			$attachment = strip_tags( $_POST['cb-background-attachment'] );
 		}
 
@@ -240,7 +275,7 @@ class CB_Custom_Backgrounds_Admin {
 			'cb_custom_background_image_id'   => $image_id,
 			'cb_custom_background_repeat'     => $repeat,
 			'cb_custom_background_position_x' => $position_x,
-		//	'cb_custom_background_position_y' => strip_tags( $_POST['cb-background-position-y'] ),
+			'cb_custom_background_position_y' => $position_y,
 			'cb_custom_background_attachment' => $attachment,
 		);
 
