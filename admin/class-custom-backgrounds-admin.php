@@ -115,28 +115,36 @@ class CB_Custom_Backgrounds_Admin {
 		$mod_position_x = get_theme_mod( 'background_position_x' );
 		$mod_attachment = get_theme_mod( 'background_attachment' );
 
+		/**
+		 * Make sure values are set for the image options.  This should always be set so that we can
+		 * be sure that the user's background image overwrites the default/WP custom background settings.
+		 * With one theme, this doesn't matter, but we need to make sure that the background stays 
+		 * consistent between different themes and different WP custom background settings.  The data 
+		 * will only be stored if the user selects a background image.
+		 */
+		$repeat     = !empty( $repeat )     ? $repeat     : $mod_repeat;
+		$position_x = !empty( $position_x ) ? $position_x : $mod_position_x;
+		$attachment = !empty( $attachment ) ? $attachment : $mod_attachment;
+
 		/* Set up an array of allowed values for the repeat option. */
 		$repeat_options = array( 
-			''          => sprintf( __( 'Default (%s)',      'custom-backgrounds' ), $mod_repeat ),
-			'no-repeat' =>          __( 'No Repeat',         'custom-backgrounds' ), 
-			'repeat'    =>          __( 'Repeat',            'custom-backgrounds' ),
-			'repeat-x'  =>          __( 'Horizontal Repeat', 'custom-backgrounds' ),
-			'repeat-y'  =>          __( 'Vertical Repeat',   'custom-backgrounds' ),
+			'no-repeat' => __( 'No Repeat',         'custom-backgrounds' ), 
+			'repeat'    => __( 'Repeat',            'custom-backgrounds' ),
+			'repeat-x'  => __( 'Horizontal Repeat', 'custom-backgrounds' ),
+			'repeat-y'  => __( 'Vertical Repeat',   'custom-backgrounds' ),
 		); 
 
 		/* Set up an array of allowed values for the position-x option. */
 		$position_x_options = array( 
-			''          => sprintf( __( 'Default (%s)', 'custom-backgrounds' ), $mod_position_x ),
-			'left'   =>             __( 'Left',         'custom-backgrounds' ), 
-			'right'  =>             __( 'Right',        'custom-backgrounds' ),
-			'center' =>             __( 'Center',       'custom-backgrounds' ),
+			'left'   => __( 'Left',   'custom-backgrounds' ), 
+			'right'  => __( 'Right',  'custom-backgrounds' ),
+			'center' => __( 'Center', 'custom-backgrounds' ),
 		); 
 
 		/* Set up an array of allowed values for the attachment option. */
 		$attachment_options = array( 
-			''       => sprintf( __( 'Default (%s)', 'custom-backgrounds' ), $mod_attachment ),
-			'scroll' =>          __( 'Scroll',       'custom-backgrounds' ), 
-			'fixed'  =>          __( 'Fixed',        'custom-backgrounds' ),
+			'scroll' => __( 'Scroll', 'custom-backgrounds' ), 
+			'fixed'  => __( 'Fixed',  'custom-backgrounds' ),
 		); ?>
 
 		<!-- Begin hidden fields. -->
