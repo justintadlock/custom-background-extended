@@ -180,7 +180,6 @@ class CB_Custom_Backgrounds_Admin {
 		<!-- Begin background color. -->
 		<p>
 			<label for="cb-background-color"><?php _e( 'Color', 'custom-backgrounds' ); ?></label>
-			<br />
 			<input type="text" name="cb-background-color" id="cb-backround-color" class="cb-wp-color-picker" value="#<?php echo esc_attr( $color ); ?>" />
 		</p>
 		<!-- End background color. -->

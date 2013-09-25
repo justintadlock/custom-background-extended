@@ -5,6 +5,9 @@ jQuery( document ).ready( function( $ ) {
 	/* Add the WordPress color picker to our custom color input. */
 	$( '.cb-wp-color-picker' ).wpColorPicker();
 
+	/* Hide the "Color" label. */
+	$( 'label[for="cb-background-color"]' ).hide();
+
 	/* === End color picker JS. === */
 
 	/* === Begin background image JS. === */
