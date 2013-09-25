@@ -89,7 +89,7 @@ final class CB_Custom_Backgrounds_Admin {
 		if ( !in_array( $hook_suffix, array( 'post-new.php', 'post.php' ) ) )
 			return;
 
-		wp_register_script( 'cb-custom-backgrounds', CUSTOM_BACKGROUNDS_URI . 'js/custom-backgrounds.js', array( 'media-views' ), false, true );
+		wp_register_script( 'cb-custom-backgrounds', CUSTOM_BACKGROUNDS_URI . 'js/custom-backgrounds.js', array( 'wp-color-picker', 'media-views' ), false, true );
 
 		wp_localize_script(
 			'cb-custom-backgrounds',
@@ -101,7 +101,6 @@ final class CB_Custom_Backgrounds_Admin {
 		);
 
 		wp_enqueue_script( 'cb-custom-backgrounds' );
-		wp_enqueue_script( 'wp-color-picker'       );
 		wp_enqueue_style(  'wp-color-picker'       );
 	}
 
