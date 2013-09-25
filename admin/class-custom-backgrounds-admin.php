@@ -171,7 +171,7 @@ final class CB_Custom_Backgrounds_Admin {
 		 */
 		$repeat     = !empty( $repeat )     ? $repeat     : $mod_repeat;
 		$position_x = !empty( $position_x ) ? $position_x : $mod_position_x;
-		$position_x = !empty( $position_y ) ? $position_y : $mod_position_y;
+		$position_y = !empty( $position_y ) ? $position_y : $mod_position_y;
 		$attachment = !empty( $attachment ) ? $attachment : $mod_attachment;
 
 		/* Set up an array of allowed values for the repeat option. */
@@ -294,19 +294,36 @@ final class CB_Custom_Backgrounds_Admin {
 		if ( 'revision' == $post->post_type )
 			return;
 
+		/* Sanitize color. */
+		$color = preg_replace( '/[^0-9a-fA-F]/', '', $_POST['cb-background-color'] );
+
+		/* Make sure the background image attachment ID is an absolute integer. */
 		$image_id = absint( $_POST['cb-background-image'] );
 
+		/* If there's not an image ID, set background image options to an empty string. */
 		if ( 0 >= $image_id ) {
+
 			$repeat = $position_x = $position_y = $attachment = '';
+
+		/* If there is an image ID, validate the background image options. */
 		} else {
-			$repeat     = strip_tags( $_POST['cb-background-repeat']     );
-			$position_x = strip_tags( $_POST['cb-background-position-x'] );
-			$position_y = strip_tags( $_POST['cb-background-position-y'] );
-			$attachment = strip_tags( $_POST['cb-background-attachment'] );
+
+			/* White-listed values. */
+			$allowed_repeat     = array( 'no-repeat', 'repeat', 'repeat-x', 'repeat-y' );
+			$allowed_position_x = array( 'left', 'right', 'center' );
+			$allowed_position_y = array( 'top', 'bottom', 'center' );
+			$allowed_attachment = array( 'scroll', 'fixed' );
+
+			/* Make sure the values have been white-listed. Otherwise, set an empty string. */
+			$repeat     = in_array( $_POST['cb-background-repeat'],     $allowed_repeat )     ? $_POST['cb-background-repeat']     : '';
+			$position_x = in_array( $_POST['cb-background-position-x'], $allowed_position_x ) ? $_POST['cb-background-position-x'] : '';
+			$position_y = in_array( $_POST['cb-background-position-y'], $allowed_position_y ) ? $_POST['cb-background-position-y'] : '';
+			$attachment = in_array( $_POST['cb-background-attachment'], $allowed_attachment ) ? $_POST['cb-background-attachment'] : '';
 		}
 
+		/* Set up an array of meta keys and values. */
 		$meta = array(
-			'cb_custom_background_color'      => trim( strip_tags( $_POST['cb-background-color'] ), '#' ),
+			'cb_custom_background_color'      => $color,
 			'cb_custom_background_image_id'   => $image_id,
 			'cb_custom_background_repeat'     => $repeat,
 			'cb_custom_background_position_x' => $position_x,
@@ -314,6 +331,7 @@ final class CB_Custom_Backgrounds_Admin {
 			'cb_custom_background_attachment' => $attachment,
 		);
 
+		/* Loop through the meta array and add, update, or delete the post metadata. */
 		foreach ( $meta as $meta_key => $new_meta_value ) {
 
 			/* Get the meta value of the custom field key. */
