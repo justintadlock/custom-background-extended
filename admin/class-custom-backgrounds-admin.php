@@ -1,6 +1,6 @@
 <?php
 
-class CB_Custom_Backgrounds_Admin {
+final class CB_Custom_Backgrounds_Admin {
 
 	/**
 	 * Holds the instance of this class.

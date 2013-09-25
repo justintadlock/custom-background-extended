@@ -1,6 +1,6 @@
 <?php
 
-class CB_Custom_Backgrounds_Filter {
+final class CB_Custom_Backgrounds_Filter {
 
 	/**
 	 * Holds the instance of this class.
