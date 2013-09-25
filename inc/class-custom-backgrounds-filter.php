@@ -1,4 +1,17 @@
 <?php
+/**
+ * Handles the front end display of custom backgrounds.  This class will check if a post has a custom 
+ * background assigned to it and filter the custom background theme mods if so on singular post views.  
+ * It also rolls its own handling of the 'wp_head' callback but only if the current theme isn't 
+ * handling this with its own callback.
+ *
+ * @package   CustomBackgrounds
+ * @since     0.1.0
+ * @author    Justin Tadlock <justin@justintadlock.com>
+ * @copyright Copyright (c) 2013, Justin Tadlock
+ * @link      http://themehybrid.com/plugins/custom-backgrounds
+ * @license   http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ */
 
 final class CB_Custom_Backgrounds_Filter {
 

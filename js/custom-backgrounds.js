@@ -58,8 +58,8 @@ jQuery( document ).ready( function( $ ) {
 	);
 
 	/**
-	 * The following code deals with the custom media modal frame for the background image.  It is a 
-	 * modified version of Thomas Griffin's New Media Image Uploader example plugin.
+	 * The following code deals with the custom media modal frame.  It is a modified version 
+	 * of Thomas Griffin's New Media Image Uploader example plugin.
 	 *
 	 * @link      https://github.com/thomasgriffin/New-Media-Image-Uploader
 	 * @license   http://www.opensource.org/licenses/gpl-license.php

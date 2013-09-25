@@ -1,4 +1,16 @@
 <?php
+/**
+ * The admin class for the plugin.  This sets up a "Custom Background" meta box on the edit post screen in the 
+ * admin.  It loads the WordPress color picker, media views, and a custom JS file for allowing the user to 
+ * select options that will overwrite the custom background on the front end for the singular view of the post.
+ *
+ * @package   CustomBackgrounds
+ * @since     0.1.0
+ * @author    Justin Tadlock <justin@justintadlock.com>
+ * @copyright Copyright (c) 2013, Justin Tadlock
+ * @link      http://themehybrid.com/plugins/custom-backgrounds
+ * @license   http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ */
 
 final class CB_Custom_Backgrounds_Admin {
 
@@ -36,6 +48,10 @@ final class CB_Custom_Backgrounds_Admin {
 
 	/**
 	 * Add actions for the edit post screen.
+	 *
+	 * @since  0.1.0
+	 * @access public
+	 * @return void
 	 */
 	public function load_post() {
 
@@ -61,6 +77,11 @@ final class CB_Custom_Backgrounds_Admin {
 
 	/**
 	 * Loads scripts/styles for the color picker and image uploader.
+	 *
+	 * @since  0.1.0
+	 * @access public
+	 * @param  string  $hook_suffix  The current admin screen.
+	 * @return void
 	 */
 	public function enqueue_scripts( $hook_suffix ) {
 
@@ -86,6 +107,11 @@ final class CB_Custom_Backgrounds_Admin {
 
 	/**
 	 * Add custom meta boxes.
+	 *
+	 * @since  0.1.0
+	 * @access public
+	 * @param  string  $post_type
+	 * @return void
 	 */
 	function add_meta_boxes( $post_type ) {
 
@@ -104,6 +130,11 @@ final class CB_Custom_Backgrounds_Admin {
 
 	/**
 	 * Display the custom background meta box.
+	 *
+	 * @since  0.1.0
+	 * @access public
+	 * @param  object  $post
+	 * @return void
 	 */
 	function do_meta_box( $post ) {
 
@@ -240,6 +271,12 @@ final class CB_Custom_Backgrounds_Admin {
 
 	/**
 	 * Saves the data from the custom backgrounds meta box.
+	 *
+	 * @since  0.1.0
+	 * @access public
+	 * @param  int    $post_id
+	 * @param  object $post
+	 * @return void
 	 */
 	function save_post( $post_id, $post ) {
 

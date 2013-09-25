@@ -2,12 +2,14 @@
 /**
  * Plugin Name: Custom Backgrounds
  * Plugin URI: http://themehybrid.com/plugins/custom-backgrounds
- * Description: Custom per-post, page, and user backgrounds.
+ * Description: Allows users to create custom backgrounds for individual posts, which are displayed on the single post page.  It works alongside any plugin that supports the WordPress <code>custom-background</code> feature.
  * Version: 0.1.0-alpha
  * Author: Justin Tadlock
  * Author URI: http://justintadlock.com
  *
- * Long Description
+ * This plugin was created so that users could create custom backgrounds for individual posts.  It ties
+ * into the Wordpress 'custom-background' theme feature.  Therefore, it will only work with themes that 
+ * add support for 'custom-background' via 'functions.php.
  *
  * This program is free software; you can redistribute it and/or modify it under the terms of the GNU 
  * General Public License as published by the Free Software Foundation; either version 2 of the License, 
