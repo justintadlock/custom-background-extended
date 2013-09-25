@@ -141,10 +141,10 @@ final class CB_Custom_Backgrounds_Filter {
 			return;
 
 		/* Get the background color. */
-		$this->color = get_post_meta( $post->ID, 'cb_custom_background_color', true );
+		$this->color = get_post_meta( $post_id, '_cb_custom_background_color', true );
 
 		/* Get the background image attachment ID. */
-		$attachment_id = get_post_meta( get_queried_object_id(), 'cb_custom_background_image_id', true );
+		$attachment_id = get_post_meta( $post_id, '_cb_custom_background_image_id', true );
 
 		/* If an attachment ID was found, get the image source. */
 		if ( !empty( $attachment_id ) ) {
@@ -161,10 +161,10 @@ final class CB_Custom_Backgrounds_Filter {
 		/* If an image was found, filter image-related theme mods. */
 		if ( !empty( $this->image ) ) {
 
-			$this->repeat     = get_post_meta( $post_id, 'cb_custom_background_repeat',     true );
-			$this->position_x = get_post_meta( $post_id, 'cb_custom_background_position_x', true );
-			$this->position_y = get_post_meta( $post_id, 'cb_custom_background_position_y', true );
-			$this->attachment = get_post_meta( $post_id, 'cb_custom_background_attachment', true );
+			$this->repeat     = get_post_meta( $post_id, '_cb_custom_background_repeat',     true );
+			$this->position_x = get_post_meta( $post_id, '_cb_custom_background_position_x', true );
+			$this->position_y = get_post_meta( $post_id, '_cb_custom_background_position_y', true );
+			$this->attachment = get_post_meta( $post_id, '_cb_custom_background_attachment', true );
 
 			add_filter( 'theme_mod_background_repeat',     array( $this, 'background_repeat'     ), 25 );
 			add_filter( 'theme_mod_background_position_x', array( $this, 'background_position_x' ), 25 );
@@ -344,8 +344,6 @@ final class CB_Custom_Backgrounds_Filter {
 		return self::$instance;
 	}
 }
-
-
 
 CB_Custom_Backgrounds_Filter::get_instance();
 

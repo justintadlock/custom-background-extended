@@ -136,10 +136,10 @@ final class CB_Custom_Backgrounds_Admin {
 	function do_meta_box( $post ) {
 
 		/* Get the background color. */
-		$color = trim( get_post_meta( $post->ID, 'cb_custom_background_color', true ), '#' );
+		$color = trim( get_post_meta( $post->ID, '_cb_custom_background_color', true ), '#' );
 
 		/* Get the background image attachment ID. */
-		$attachment_id = get_post_meta( $post->ID, 'cb_custom_background_image_id', true );
+		$attachment_id = get_post_meta( $post->ID, '_cb_custom_background_image_id', true );
 
 		/* If an attachment ID was found, get the image source. */
 		if ( !empty( $attachment_id ) )
@@ -149,10 +149,10 @@ final class CB_Custom_Backgrounds_Admin {
 		$url = !empty( $image ) && isset( $image[0] ) ? $image[0] : '';
 
 		/* Get the background image settings. */
-		$repeat     = get_post_meta( $post->ID, 'cb_custom_background_repeat',     true );
-		$position_x = get_post_meta( $post->ID, 'cb_custom_background_position_x', true );
-		$position_y = get_post_meta( $post->ID, 'cb_custom_background_position_y', true );
-		$attachment = get_post_meta( $post->ID, 'cb_custom_background_attachment', true );
+		$repeat     = get_post_meta( $post->ID, '_cb_custom_background_repeat',     true );
+		$position_x = get_post_meta( $post->ID, '_cb_custom_background_position_x', true );
+		$position_y = get_post_meta( $post->ID, '_cb_custom_background_position_y', true );
+		$attachment = get_post_meta( $post->ID, '_cb_custom_background_attachment', true );
 
 		/* Get theme mods. */
 		$mod_repeat     = get_theme_mod( 'background_repeat',     'repeat' );
@@ -321,12 +321,12 @@ final class CB_Custom_Backgrounds_Admin {
 
 		/* Set up an array of meta keys and values. */
 		$meta = array(
-			'cb_custom_background_color'      => $color,
-			'cb_custom_background_image_id'   => $image_id,
-			'cb_custom_background_repeat'     => $repeat,
-			'cb_custom_background_position_x' => $position_x,
-			'cb_custom_background_position_y' => $position_y,
-			'cb_custom_background_attachment' => $attachment,
+			'_cb_custom_background_color'      => $color,
+			'_cb_custom_background_image_id'   => $image_id,
+			'_cb_custom_background_repeat'     => $repeat,
+			'_cb_custom_background_position_x' => $position_x,
+			'_cb_custom_background_position_y' => $position_y,
+			'_cb_custom_background_attachment' => $attachment,
 		);
 
 		/* Loop through the meta array and add, update, or delete the post metadata. */
