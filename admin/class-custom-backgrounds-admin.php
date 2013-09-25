@@ -54,9 +54,10 @@ final class CB_Custom_Backgrounds_Admin {
 	 * @return void
 	 */
 	public function load_post() {
+		$screen = get_current_screen();
 
 		/* If the current theme doesn't support custom backgrounds, bail. */
-		if ( !current_theme_supports( 'custom-background' ) )
+		if ( !current_theme_supports( 'custom-background' ) || !post_type_supports( $screen->post_type, 'custom-background' ) )
 			return;
 
 		/* Get the 'wp_head' callback. */
@@ -113,9 +114,6 @@ final class CB_Custom_Backgrounds_Admin {
 	 * @return void
 	 */
 	function add_meta_boxes( $post_type ) {
-
-		if ( !post_type_supports( $post_type, 'custom-background' ) )
-			return;
 
 		add_meta_box(
 			'cb-custom-backgrounds',
