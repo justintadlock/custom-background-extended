@@ -23,7 +23,7 @@ jQuery( document ).ready( function( $ ) {
 	if ( $( 'input#cbe-background-image' ).val() ) {
 
 		/* Hide the 'set background image' link. */
-		$( '.cbe-add-media' ).hide();
+		$( '.cbe-add-media-text' ).hide();
 
 		/* Show the 'remove background image' link, the image, and extra options. */
 		$( '.cbe-remove-media, .cbe-background-image-options, .cbe-background-image-url' ).show();
@@ -33,7 +33,7 @@ jQuery( document ).ready( function( $ ) {
 	else {
 
 		/* Show the 'set background image' link. */
-		$( '.cbe-add-media' ).show();
+		$( '.cbe-add-media-text' ).show();
 
 		/* Hide the 'remove background image' link, the image, and extra options. */
 		$( '.cbe-remove-media, .cbe-background-image-options, .cbe-background-image-url' ).hide();
@@ -50,7 +50,7 @@ jQuery( document ).ready( function( $ ) {
 			$( '#cbe-background-image' ).val( '' );
 
 			/* Show the 'set background image' link. */
-			$( '.cbe-add-media' ).show();
+			$( '.cbe-add-media-text' ).show();
 
 			/* Hide the 'remove background image' link, the image, and extra options. */
 			$( '.cbe-remove-media, .cbe-background-image-url, .cbe-background-image-options' ).hide();
@@ -123,7 +123,7 @@ jQuery( document ).ready( function( $ ) {
 					// Send the attachment ID to our custom input field via jQuery.
 					$( '#cbe-background-image').val( media_attachment.id );
 					$( '.cbe-background-image-url' ).attr( 'src', media_attachment.url );
-					$( '.cbe-add-media' ).hide();
+					$( '.cbe-add-media-text' ).hide();
 
 					$( '.cbe-background-image-url, .cbe-remove-media, .cbe-background-image-options' ).show();
 				}
