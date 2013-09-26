@@ -307,12 +307,12 @@ final class CBE_Custom_Backgrounds_Admin {
 		} else {
 
 			/* Add the image to the pool of uploaded background images for this theme. */
-			if ( !empty( $image ) ) {
+			if ( !empty( $image_id ) ) {
 
-				$is_custom_header = get_post_meta( $attachment_id, '_wp_attachment_is_custom_background', true );
+				$is_custom_header = get_post_meta( $image_id, '_wp_attachment_is_custom_background', true );
 
 				if ( $is_custom_header !== get_stylesheet() )
-					update_post_meta( $attachment_id, '_wp_attachment_is_custom_background', get_stylesheet() );
+					update_post_meta( $image_id, '_wp_attachment_is_custom_background', get_stylesheet() );
 			}
 
 
