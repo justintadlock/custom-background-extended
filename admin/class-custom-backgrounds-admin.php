@@ -306,6 +306,16 @@ final class CBE_Custom_Backgrounds_Admin {
 		/* If there is an image ID, validate the background image options. */
 		} else {
 
+			/* Add the image to the pool of uploaded background images for this theme. */
+			if ( !empty( $image ) ) {
+
+				$is_custom_header = get_post_meta( $attachment_id, '_wp_attachment_is_custom_background', true );
+
+				if ( $is_custom_header !== get_stylesheet() )
+					update_post_meta( $attachment_id, '_wp_attachment_is_custom_background', get_stylesheet() );
+			}
+
+
 			/* White-listed values. */
 			$allowed_repeat     = array( 'no-repeat', 'repeat', 'repeat-x', 'repeat-y' );
 			$allowed_position_x = array( 'left', 'right', 'center' );
