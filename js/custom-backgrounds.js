@@ -3,57 +3,57 @@ jQuery( document ).ready( function( $ ) {
 	/* === Begin color picker JS. === */
 
 	/* Add the WordPress color picker to our custom color input. */
-	$( '.cb-wp-color-picker' ).wpColorPicker();
+	$( '.cbe-wp-color-picker' ).wpColorPicker();
 
 	/* Hide the "Color" label. */
-	$( 'label[for="cb-background-color"]' ).hide();
+	$( 'label[for="cbe-background-color"]' ).hide();
 
 	/* === End color picker JS. === */
 
 	/* === Begin background image JS. === */
 
 	/* If the background <img> source has a value, show it.  Otherwise, hide. */
-	if ( $( '.cb-background-image-url' ).attr( 'src' ) ) {
-		$( '.cb-background-image-url' ).show();
+	if ( $( '.cbe-background-image-url' ).attr( 'src' ) ) {
+		$( '.cbe-background-image-url' ).show();
 	} else {
-		$( '.cb-background-image-url' ).hide();
+		$( '.cbe-background-image-url' ).hide();
 	}
 
 	/* If there's a value for the background image input. */
-	if ( $( 'input#cb-background-image' ).val() ) {
+	if ( $( 'input#cbe-background-image' ).val() ) {
 
 		/* Hide the 'set background image' link. */
-		$( '.cb-add-media' ).hide();
+		$( '.cbe-add-media' ).hide();
 
 		/* Show the 'remove background image' link, the image, and extra options. */
-		$( '.cb-remove-media, .cb-background-image-options, .cb-background-image-url' ).show();
+		$( '.cbe-remove-media, .cbe-background-image-options, .cbe-background-image-url' ).show();
 	}
 
 	/* Else, if there's not a value for the background image input. */
 	else {
 
 		/* Show the 'set background image' link. */
-		$( '.cb-add-media' ).show();
+		$( '.cbe-add-media' ).show();
 
 		/* Hide the 'remove background image' link, the image, and extra options. */
-		$( '.cb-remove-media, .cb-background-image-options, .cb-background-image-url' ).hide();
+		$( '.cbe-remove-media, .cbe-background-image-options, .cbe-background-image-url' ).hide();
 	}
 
 	/* When the 'remove background image' link is clicked. */
-	$( '.cb-remove-media' ).click(
+	$( '.cbe-remove-media' ).click(
 		function( j ) {
 
 			/* Prevent the default link behavior. */
 			j.preventDefault();
 
 			/* Set the background image input value to nothing. */
-			$( '#cb-background-image' ).val( '' );
+			$( '#cbe-background-image' ).val( '' );
 
 			/* Show the 'set background image' link. */
-			$( '.cb-add-media' ).show();
+			$( '.cbe-add-media' ).show();
 
 			/* Hide the 'remove background image' link, the image, and extra options. */
-			$( '.cb-remove-media, .cb-background-image-url, .cb-background-image-options' ).hide();
+			$( '.cbe-remove-media, .cbe-background-image-url, .cbe-background-image-options' ).hide();
 		}
 	);
 
@@ -68,10 +68,10 @@ jQuery( document ).ready( function( $ ) {
 	 */
 
 	// Prepare the variable that holds our custom media manager.
-	var cb_custom_backgrounds_frame;
+	var cbe_custom_backgrounds_frame;
 
 	/* When the 'set background image' link is clicked. */
-	$( '.cb-add-media' ).click( 
+	$( '.cbe-add-media' ).click( 
 
 		function( j ) {
 
@@ -79,17 +79,17 @@ jQuery( document ).ready( function( $ ) {
 			j.preventDefault();
 
 			// If the frame already exists, open it.
-			if ( cb_custom_backgrounds_frame ) {
-				cb_custom_backgrounds_frame.open();
+			if ( cbe_custom_backgrounds_frame ) {
+				cbe_custom_backgrounds_frame.open();
 				return;
 			}
 
 			// Create the media frame.
-			cb_custom_backgrounds_frame = wp.media.frames.cb_custom_backgrounds_frame = wp.media( 
+			cbe_custom_backgrounds_frame = wp.media.frames.cbe_custom_backgrounds_frame = wp.media( 
 				{
 
 					// We can pass in a custom class name to our frame.
-					className: 'media-frame cb-custom-backgrounds-frame',
+					className: 'media-frame cbe-custom-background-extended-frame',
 
 					// Frame type ('select' or 'post').
 					frame: 'select',
@@ -98,7 +98,7 @@ jQuery( document ).ready( function( $ ) {
 					multiple: false,
 
 					// Custom frame title.
-					title: cb_custom_backgrounds.title,
+					title: cbe_custom_backgrounds.title,
 
 					// Media type allowed.
 					library: {
@@ -107,30 +107,30 @@ jQuery( document ).ready( function( $ ) {
 
 					// Custom "insert" button.
 					button: {
-						text:  cb_custom_backgrounds.button
+						text:  cbe_custom_backgrounds.button
 					}
 				}
 			);
 
 			// Do stuff with the data when an image has been selected.
-			cb_custom_backgrounds_frame.on( 'select', 
+			cbe_custom_backgrounds_frame.on( 'select', 
 
 				function() {
 
 					// Construct a JSON representation of the model.
-					var media_attachment = cb_custom_backgrounds_frame.state().get( 'selection' ).first().toJSON();
+					var media_attachment = cbe_custom_backgrounds_frame.state().get( 'selection' ).first().toJSON();
 
 					// Send the attachment ID to our custom input field via jQuery.
-					$( '#cb-background-image').val( media_attachment.id );
-					$( '.cb-background-image-url' ).attr( 'src', media_attachment.url );
-					$( '.cb-add-media' ).hide();
+					$( '#cbe-background-image').val( media_attachment.id );
+					$( '.cbe-background-image-url' ).attr( 'src', media_attachment.url );
+					$( '.cbe-add-media' ).hide();
 
-					$( '.cb-background-image-url, .cb-remove-media, .cb-background-image-options' ).show();
+					$( '.cbe-background-image-url, .cbe-remove-media, .cbe-background-image-options' ).show();
 				}
 			);
 
 			// Open up the frame.
-			cb_custom_backgrounds_frame.open();
+			cbe_custom_backgrounds_frame.open();
 		}
 	);
 

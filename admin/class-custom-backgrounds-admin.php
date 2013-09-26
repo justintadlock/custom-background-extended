@@ -4,15 +4,15 @@
  * admin.  It loads the WordPress color picker, media views, and a custom JS file for allowing the user to 
  * select options that will overwrite the custom background on the front end for the singular view of the post.
  *
- * @package   CustomBackgrounds
+ * @package   CustomBackgroundExtended
  * @since     0.1.0
  * @author    Justin Tadlock <justin@justintadlock.com>
  * @copyright Copyright (c) 2013, Justin Tadlock
- * @link      http://themehybrid.com/plugins/custom-backgrounds
+ * @link      http://themehybrid.com/plugins/custom-background-extended
  * @license   http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
-final class CB_Custom_Backgrounds_Admin {
+final class CBE_Custom_Backgrounds_Admin {
 
 	/**
 	 * Holds the instance of this class.
@@ -90,18 +90,18 @@ final class CB_Custom_Backgrounds_Admin {
 		if ( !in_array( $hook_suffix, array( 'post-new.php', 'post.php' ) ) )
 			return;
 
-		wp_register_script( 'cb-custom-backgrounds', CUSTOM_BACKGROUNDS_URI . 'js/custom-backgrounds.js', array( 'wp-color-picker', 'media-views' ), false, true );
+		wp_register_script( 'cbe-custom-background-extended', CUSTOM_BACKGROUND_EXT_URI . 'js/custom-backgrounds.js', array( 'wp-color-picker', 'media-views' ), false, true );
 
 		wp_localize_script(
-			'cb-custom-backgrounds',
-			'cb_custom_backgrounds',
+			'cbe-custom-background-extended',
+			'cbe_custom_backgrounds',
 			array(
-				'title'  => __( 'Set Background Image', 'custom-backgrounds' ),
-				'button' => __( 'Set background image', 'custom-backgrounds' )
+				'title'  => __( 'Set Background Image', 'custom-background-extended' ),
+				'button' => __( 'Set background image', 'custom-background-extended' )
 			)
 		);
 
-		wp_enqueue_script( 'cb-custom-backgrounds' );
+		wp_enqueue_script( 'cbe-custom-background-extended' );
 		wp_enqueue_style(  'wp-color-picker'       );
 	}
 
@@ -116,8 +116,8 @@ final class CB_Custom_Backgrounds_Admin {
 	function add_meta_boxes( $post_type ) {
 
 		add_meta_box(
-			'cb-custom-backgrounds',
-			__( 'Custom Background', 'custom-backgrounds' ),
+			'cbe-custom-background-extended',
+			__( 'Custom Background', 'custom-background-extended' ),
 			array( $this, 'do_meta_box' ),
 			$post_type,
 			'side',
@@ -136,10 +136,10 @@ final class CB_Custom_Backgrounds_Admin {
 	function do_meta_box( $post ) {
 
 		/* Get the background color. */
-		$color = trim( get_post_meta( $post->ID, '_cb_custom_background_color', true ), '#' );
+		$color = trim( get_post_meta( $post->ID, '_custom_background_color', true ), '#' );
 
 		/* Get the background image attachment ID. */
-		$attachment_id = get_post_meta( $post->ID, '_cb_custom_background_image_id', true );
+		$attachment_id = get_post_meta( $post->ID, '_custom_background_image_id', true );
 
 		/* If an attachment ID was found, get the image source. */
 		if ( !empty( $attachment_id ) )
@@ -149,10 +149,10 @@ final class CB_Custom_Backgrounds_Admin {
 		$url = !empty( $image ) && isset( $image[0] ) ? $image[0] : '';
 
 		/* Get the background image settings. */
-		$repeat     = get_post_meta( $post->ID, '_cb_custom_background_repeat',     true );
-		$position_x = get_post_meta( $post->ID, '_cb_custom_background_position_x', true );
-		$position_y = get_post_meta( $post->ID, '_cb_custom_background_position_y', true );
-		$attachment = get_post_meta( $post->ID, '_cb_custom_background_attachment', true );
+		$repeat     = get_post_meta( $post->ID, '_custom_background_repeat',     true );
+		$position_x = get_post_meta( $post->ID, '_custom_background_position_x', true );
+		$position_y = get_post_meta( $post->ID, '_custom_background_position_y', true );
+		$attachment = get_post_meta( $post->ID, '_custom_background_attachment', true );
 
 		/* Get theme mods. */
 		$mod_repeat     = get_theme_mod( 'background_repeat',     'repeat' );
@@ -174,58 +174,58 @@ final class CB_Custom_Backgrounds_Admin {
 
 		/* Set up an array of allowed values for the repeat option. */
 		$repeat_options = array( 
-			'no-repeat' => __( 'No Repeat',           'custom-backgrounds' ), 
-			'repeat'    => __( 'Repeat',              'custom-backgrounds' ),
-			'repeat-x'  => __( 'Repeat Horizontally', 'custom-backgrounds' ),
-			'repeat-y'  => __( 'Repeat Vertically',   'custom-backgrounds' ),
+			'no-repeat' => __( 'No Repeat',           'custom-background-extended' ), 
+			'repeat'    => __( 'Repeat',              'custom-background-extended' ),
+			'repeat-x'  => __( 'Repeat Horizontally', 'custom-background-extended' ),
+			'repeat-y'  => __( 'Repeat Vertically',   'custom-background-extended' ),
 		);
 
 		/* Set up an array of allowed values for the position-x option. */
 		$position_x_options = array( 
-			'left'   => __( 'Left',   'custom-backgrounds' ), 
-			'right'  => __( 'Right',  'custom-backgrounds' ),
-			'center' => __( 'Center', 'custom-backgrounds' ),
+			'left'   => __( 'Left',   'custom-background-extended' ), 
+			'right'  => __( 'Right',  'custom-background-extended' ),
+			'center' => __( 'Center', 'custom-background-extended' ),
 		);
 
 		/* Set up an array of allowed values for the position-x option. */
 		$position_y_options = array( 
-			'top'    => __( 'Top',    'custom-backgrounds' ), 
-			'bottom' => __( 'Bottom', 'custom-backgrounds' ),
-			'center' => __( 'Center', 'custom-backgrounds' ),
+			'top'    => __( 'Top',    'custom-background-extended' ), 
+			'bottom' => __( 'Bottom', 'custom-background-extended' ),
+			'center' => __( 'Center', 'custom-background-extended' ),
 		);
 
 		/* Set up an array of allowed values for the attachment option. */
 		$attachment_options = array( 
-			'scroll' => __( 'Scroll', 'custom-backgrounds' ), 
-			'fixed'  => __( 'Fixed',  'custom-backgrounds' ),
+			'scroll' => __( 'Scroll', 'custom-background-extended' ), 
+			'fixed'  => __( 'Fixed',  'custom-background-extended' ),
 		); ?>
 
 		<!-- Begin hidden fields. -->
-		<?php wp_nonce_field( plugin_basename( __FILE__ ), 'cb_meta_nonce' ); ?>
-		<input type="hidden" name="cb-background-image" id="cb-background-image" value="<?php echo esc_attr( $attachment_id ); ?>" />
+		<?php wp_nonce_field( plugin_basename( __FILE__ ), 'cbe_meta_nonce' ); ?>
+		<input type="hidden" name="cbe-background-image" id="cbe-background-image" value="<?php echo esc_attr( $attachment_id ); ?>" />
 		<!-- End hidden fields. -->
 
 		<!-- Begin background color. -->
 		<p>
-			<label for="cb-background-color"><?php _e( 'Color', 'custom-backgrounds' ); ?></label>
-			<input type="text" name="cb-background-color" id="cb-backround-color" class="cb-wp-color-picker" value="#<?php echo esc_attr( $color ); ?>" />
+			<label for="cbe-background-color"><?php _e( 'Color', 'custom-background-extended' ); ?></label>
+			<input type="text" name="cbe-background-color" id="cbe-backround-color" class="cbe-wp-color-picker" value="#<?php echo esc_attr( $color ); ?>" />
 		</p>
 		<!-- End background color. -->
 
 		<!-- Begin background image. -->
 		<p>
-			<img class="cb-background-image-url" src="<?php echo esc_url( $url ); ?>" style="max-width: 100%; display: block;" />
-			<a href="#" class="cb-add-media"><?php _e( 'Set background image', 'custom-backgrounds' ); ?></a> 
-			<a href="#" class="cb-remove-media"><?php _e( 'Remove background image', 'custom-backgrounds' ); ?></a>
+			<img class="cbe-background-image-url" src="<?php echo esc_url( $url ); ?>" style="max-width: 100%; display: block;" />
+			<a href="#" class="cbe-add-media"><?php _e( 'Set background image', 'custom-background-extended' ); ?></a> 
+			<a href="#" class="cbe-remove-media"><?php _e( 'Remove background image', 'custom-background-extended' ); ?></a>
 		</p>
 		<!-- End background image. -->
 
 		<!-- Begin background image options -->
-		<div class="cb-background-image-options">
+		<div class="cbe-background-image-options">
 
 			<p>
-				<label for="cb-background-repeat"><?php _e( 'Repeat', 'custom-backgrounds' ); ?></label>
-				<select class="widefat" name="cb-background-repeat" id="cb-background-repeat">
+				<label for="cbe-background-repeat"><?php _e( 'Repeat', 'custom-background-extended' ); ?></label>
+				<select class="widefat" name="cbe-background-repeat" id="cbe-background-repeat">
 				<?php foreach( $repeat_options as $option => $label ) { ?>
 					<option value="<?php echo esc_attr( $option ); ?>" <?php selected( $repeat, $option ); ?> /><?php echo esc_html( $label ); ?></option>
 				<?php } ?>
@@ -233,8 +233,8 @@ final class CB_Custom_Backgrounds_Admin {
 			</p>
 
 			<p>
-				<label for="cb-background-position-x"><?php _e( 'Horizontal Position', 'custom-backgrounds' ); ?></label>
-				<select class="widefat" name="cb-background-position-x" id="cb-background-position-x">
+				<label for="cbe-background-position-x"><?php _e( 'Horizontal Position', 'custom-background-extended' ); ?></label>
+				<select class="widefat" name="cbe-background-position-x" id="cbe-background-position-x">
 				<?php foreach( $position_x_options as $option => $label ) { ?>
 					<option value="<?php echo esc_attr( $option ); ?>" <?php selected( $position_x, $option ); ?> /><?php echo esc_html( $label ); ?></option>
 				<?php } ?>
@@ -243,8 +243,8 @@ final class CB_Custom_Backgrounds_Admin {
 
 			<?php if ( !$this->theme_has_callback ) { ?>
 			<p>
-				<label for="cb-background-position-y"><?php _e( 'Vertical Position', 'custom-backgrounds' ); ?></label>
-				<select class="widefat" name="cb-background-position-y" id="cb-background-position-y">
+				<label for="cbe-background-position-y"><?php _e( 'Vertical Position', 'custom-background-extended' ); ?></label>
+				<select class="widefat" name="cbe-background-position-y" id="cbe-background-position-y">
 				<?php foreach( $position_y_options as $option => $label ) { ?>
 					<option value="<?php echo esc_attr( $option ); ?>" <?php selected( $position_y, $option ); ?> /><?php echo esc_html( $label ); ?></option>
 				<?php } ?>
@@ -253,8 +253,8 @@ final class CB_Custom_Backgrounds_Admin {
 			<?php } ?>
 
 			<p>
-				<label for="cb-background-attachment"><?php _e( 'Attachment', 'custom-backgrounds' ); ?></label>
-				<select class="widefat" name="cb-background-attachment" id="cb-background-attachment">
+				<label for="cbe-background-attachment"><?php _e( 'Attachment', 'custom-background-extended' ); ?></label>
+				<select class="widefat" name="cbe-background-attachment" id="cbe-background-attachment">
 				<?php foreach( $attachment_options as $option => $label ) { ?>
 					<option value="<?php echo esc_attr( $option ); ?>" <?php selected( $attachment, $option ); ?> /><?php echo esc_html( $label ); ?></option>
 				<?php } ?>
@@ -278,7 +278,7 @@ final class CB_Custom_Backgrounds_Admin {
 	function save_post( $post_id, $post ) {
 
 		/* Verify the nonce. */
-		if ( !isset( $_POST['cb_meta_nonce'] ) || !wp_verify_nonce( $_POST['cb_meta_nonce'], plugin_basename( __FILE__ ) ) )
+		if ( !isset( $_POST['cbe_meta_nonce'] ) || !wp_verify_nonce( $_POST['cbe_meta_nonce'], plugin_basename( __FILE__ ) ) )
 			return;
 
 		/* Get the post type object. */
@@ -293,10 +293,10 @@ final class CB_Custom_Backgrounds_Admin {
 			return;
 
 		/* Sanitize color. */
-		$color = preg_replace( '/[^0-9a-fA-F]/', '', $_POST['cb-background-color'] );
+		$color = preg_replace( '/[^0-9a-fA-F]/', '', $_POST['cbe-background-color'] );
 
 		/* Make sure the background image attachment ID is an absolute integer. */
-		$image_id = absint( $_POST['cb-background-image'] );
+		$image_id = absint( $_POST['cbe-background-image'] );
 
 		/* If there's not an image ID, set background image options to an empty string. */
 		if ( 0 >= $image_id ) {
@@ -313,20 +313,20 @@ final class CB_Custom_Backgrounds_Admin {
 			$allowed_attachment = array( 'scroll', 'fixed' );
 
 			/* Make sure the values have been white-listed. Otherwise, set an empty string. */
-			$repeat     = in_array( $_POST['cb-background-repeat'],     $allowed_repeat )     ? $_POST['cb-background-repeat']     : '';
-			$position_x = in_array( $_POST['cb-background-position-x'], $allowed_position_x ) ? $_POST['cb-background-position-x'] : '';
-			$position_y = in_array( $_POST['cb-background-position-y'], $allowed_position_y ) ? $_POST['cb-background-position-y'] : '';
-			$attachment = in_array( $_POST['cb-background-attachment'], $allowed_attachment ) ? $_POST['cb-background-attachment'] : '';
+			$repeat     = in_array( $_POST['cbe-background-repeat'],     $allowed_repeat )     ? $_POST['cbe-background-repeat']     : '';
+			$position_x = in_array( $_POST['cbe-background-position-x'], $allowed_position_x ) ? $_POST['cbe-background-position-x'] : '';
+			$position_y = in_array( $_POST['cbe-background-position-y'], $allowed_position_y ) ? $_POST['cbe-background-position-y'] : '';
+			$attachment = in_array( $_POST['cbe-background-attachment'], $allowed_attachment ) ? $_POST['cbe-background-attachment'] : '';
 		}
 
 		/* Set up an array of meta keys and values. */
 		$meta = array(
-			'_cb_custom_background_color'      => $color,
-			'_cb_custom_background_image_id'   => $image_id,
-			'_cb_custom_background_repeat'     => $repeat,
-			'_cb_custom_background_position_x' => $position_x,
-			'_cb_custom_background_position_y' => $position_y,
-			'_cb_custom_background_attachment' => $attachment,
+			'_custom_background_color'      => $color,
+			'_custom_background_image_id'   => $image_id,
+			'_custom_background_repeat'     => $repeat,
+			'_custom_background_position_x' => $position_x,
+			'_custom_background_position_y' => $position_y,
+			'_custom_background_attachment' => $attachment,
 		);
 
 		/* Loop through the meta array and add, update, or delete the post metadata. */
@@ -366,6 +366,6 @@ final class CB_Custom_Backgrounds_Admin {
 	}
 }
 
-CB_Custom_Backgrounds_Admin::get_instance();
+CBE_Custom_Backgrounds_Admin::get_instance();
 
 ?>

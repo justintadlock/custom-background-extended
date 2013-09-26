@@ -21,7 +21,7 @@
  * You should have received a copy of the GNU General Public License along with this program; if not, write 
  * to the Free Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  *
- * @package   CustomBackgrounds
+ * @package   CustomBackgroundExtended
  * @version   0.1.0
  * @since     0.1.0
  * @author    Justin Tadlock <justin@justintadlock.com>
@@ -30,7 +30,7 @@
  * @license   http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
-final class CB_Custom_Backgrounds {
+final class CBE_Custom_Backgrounds {
 
 	/**
 	 * Holds the instance of this class.
@@ -76,10 +76,10 @@ final class CB_Custom_Backgrounds {
 	public function constants() {
 
 		/* Set constant path to the plugin directory. */
-		define( 'CUSTOM_BACKGROUNDS_DIR', trailingslashit( plugin_dir_path( __FILE__ ) ) );
+		define( 'CUSTOM_BACKGROUND_EXT_DIR', trailingslashit( plugin_dir_path( __FILE__ ) ) );
 
 		/* Set the constant path to the plugin directory URI. */
-		define( 'CUSTOM_BACKGROUNDS_URI', trailingslashit( plugin_dir_url( __FILE__ ) ) );
+		define( 'CUSTOM_BACKGROUND_EXT_URI', trailingslashit( plugin_dir_url( __FILE__ ) ) );
 	}
 
 	/**
@@ -92,7 +92,7 @@ final class CB_Custom_Backgrounds {
 	public function includes() {
 
 		if ( !is_admin() )
-			require_once( CUSTOM_BACKGROUNDS_DIR . 'inc/class-custom-backgrounds-filter.php' );
+			require_once( CUSTOM_BACKGROUND_EXT_DIR . 'inc/class-custom-backgrounds-filter.php' );
 	}
 
 	/**
@@ -105,7 +105,7 @@ final class CB_Custom_Backgrounds {
 	public function i18n() {
 
 		/* Load the translation of the plugin. */
-	//	load_plugin_textdomain( 'custom-backgrounds', false, 'custom-backgrounds/languages' );
+	//	load_plugin_textdomain( 'custom-background-extended', false, 'custom-background-extended/languages' );
 	}
 
 	/**
@@ -118,7 +118,7 @@ final class CB_Custom_Backgrounds {
 	public function admin() {
 
 		if ( is_admin() )
-			require_once( CUSTOM_BACKGROUNDS_DIR . 'admin/class-custom-backgrounds-admin.php' );
+			require_once( CUSTOM_BACKGROUND_EXT_DIR . 'admin/class-custom-backgrounds-admin.php' );
 	}
 
 	/**
@@ -149,6 +149,6 @@ final class CB_Custom_Backgrounds {
 	}
 }
 
-CB_Custom_Backgrounds::get_instance();
+CBE_Custom_Backgrounds::get_instance();
 
 ?>

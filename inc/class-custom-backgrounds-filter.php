@@ -5,15 +5,15 @@
  * It also rolls its own handling of the 'wp_head' callback but only if the current theme isn't 
  * handling this with its own callback.
  *
- * @package   CustomBackgrounds
+ * @package   CustomBackgroundExtended
  * @since     0.1.0
  * @author    Justin Tadlock <justin@justintadlock.com>
  * @copyright Copyright (c) 2013, Justin Tadlock
- * @link      http://themehybrid.com/plugins/custom-backgrounds
+ * @link      http://themehybrid.com/plugins/custom-background-extended
  * @license   http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
-final class CB_Custom_Backgrounds_Filter {
+final class CBE_Custom_Backgrounds_Filter {
 
 	/**
 	 * Holds the instance of this class.
@@ -141,10 +141,10 @@ final class CB_Custom_Backgrounds_Filter {
 			return;
 
 		/* Get the background color. */
-		$this->color = get_post_meta( $post_id, '_cb_custom_background_color', true );
+		$this->color = get_post_meta( $post_id, '_custom_background_color', true );
 
 		/* Get the background image attachment ID. */
-		$attachment_id = get_post_meta( $post_id, '_cb_custom_background_image_id', true );
+		$attachment_id = get_post_meta( $post_id, '_custom_background_image_id', true );
 
 		/* If an attachment ID was found, get the image source. */
 		if ( !empty( $attachment_id ) ) {
@@ -161,10 +161,10 @@ final class CB_Custom_Backgrounds_Filter {
 		/* If an image was found, filter image-related theme mods. */
 		if ( !empty( $this->image ) ) {
 
-			$this->repeat     = get_post_meta( $post_id, '_cb_custom_background_repeat',     true );
-			$this->position_x = get_post_meta( $post_id, '_cb_custom_background_position_x', true );
-			$this->position_y = get_post_meta( $post_id, '_cb_custom_background_position_y', true );
-			$this->attachment = get_post_meta( $post_id, '_cb_custom_background_attachment', true );
+			$this->repeat     = get_post_meta( $post_id, '_custom_background_repeat',     true );
+			$this->position_x = get_post_meta( $post_id, '_custom_background_position_x', true );
+			$this->position_y = get_post_meta( $post_id, '_custom_background_position_y', true );
+			$this->attachment = get_post_meta( $post_id, '_custom_background_attachment', true );
 
 			add_filter( 'theme_mod_background_repeat',     array( $this, 'background_repeat'     ), 25 );
 			add_filter( 'theme_mod_background_position_x', array( $this, 'background_position_x' ), 25 );
@@ -345,6 +345,6 @@ final class CB_Custom_Backgrounds_Filter {
 	}
 }
 
-CB_Custom_Backgrounds_Filter::get_instance();
+CBE_Custom_Backgrounds_Filter::get_instance();
 
 ?>
