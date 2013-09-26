@@ -42,6 +42,24 @@ final class CBE_Custom_Backgrounds {
 	private static $instance;
 
 	/**
+	 * Stores the directory path for this plugin.
+	 *
+	 * @since  0.1.0
+	 * @access private
+	 * @var    string
+	 */
+	private $directory_path;
+
+	/**
+	 * Stores the directory URI for this plugin.
+	 *
+	 * @since  0.1.0
+	 * @access private
+	 * @var    string
+	 */
+	private $directory_uri;
+
+	/**
 	 * Plugin setup.
 	 *
 	 * @since  0.1.0
@@ -50,8 +68,8 @@ final class CBE_Custom_Backgrounds {
 	 */
 	public function __construct() {
 
-		/* Set the constants needed by the plugin. */
-		add_action( 'plugins_loaded', array( $this, 'constants' ), 1 );
+		/* Set the properties needed by the plugin. */
+		add_action( 'plugins_loaded', array( $this, 'setup' ), 1 );
 
 		/* Internationalize the text strings used. */
 		add_action( 'plugins_loaded', array( $this, 'i18n' ), 2 );
@@ -70,19 +88,16 @@ final class CBE_Custom_Backgrounds {
 	}
 
 	/**
-	 * Defines constants used by the plugin.
+	 * Defines the directory path and URI for the plugin.
 	 *
 	 * @since  0.1.0
 	 * @access public
 	 * @return void
 	 */
-	public function constants() {
+	public function setup() {
 
-		/* Set constant path to the plugin directory. */
-		define( 'CUSTOM_BACKGROUND_EXT_DIR', trailingslashit( plugin_dir_path( __FILE__ ) ) );
-
-		/* Set the constant path to the plugin directory URI. */
-		define( 'CUSTOM_BACKGROUND_EXT_URI', trailingslashit( plugin_dir_url( __FILE__ ) ) );
+		$this->directory_path = trailingslashit( plugin_dir_path( __FILE__ ) );
+		$this->directory_uri  = trailingslashit( plugin_dir_url(  __FILE__ ) );
 	}
 
 	/**
@@ -95,7 +110,7 @@ final class CBE_Custom_Backgrounds {
 	public function includes() {
 
 		if ( !is_admin() )
-			require_once( CUSTOM_BACKGROUND_EXT_DIR . 'inc/class-custom-backgrounds-filter.php' );
+			require_once( "{$this->directory_path}inc/class-custom-backgrounds-filter.php" );
 	}
 
 	/**
@@ -121,7 +136,7 @@ final class CBE_Custom_Backgrounds {
 	public function admin() {
 
 		if ( is_admin() )
-			require_once( CUSTOM_BACKGROUND_EXT_DIR . 'admin/class-custom-backgrounds-admin.php' );
+			require_once( "{$this->directory_path}admin/class-custom-backgrounds-admin.php" );
 	}
 
 	/**
@@ -147,7 +162,7 @@ final class CBE_Custom_Backgrounds {
 
 		wp_register_script(
 			'custom-background-extended',
-			CUSTOM_BACKGROUND_EXT_URI . 'js/custom-backgrounds.min.js',
+			"{$this->directory_uri}js/custom-backgrounds.min.js",
 			array( 'wp-color-picker', 'media-views' ),
 			'20130926',
 			true
