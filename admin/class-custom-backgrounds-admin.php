@@ -90,7 +90,7 @@ final class CBE_Custom_Backgrounds_Admin {
 		if ( !in_array( $hook_suffix, array( 'post-new.php', 'post.php' ) ) )
 			return;
 
-		wp_register_script( 'cbe-custom-background-extended', CUSTOM_BACKGROUND_EXT_URI . 'js/custom-backgrounds.js', array( 'wp-color-picker', 'media-views' ), false, true );
+		wp_register_script( 'cbe-custom-background-extended', CUSTOM_BACKGROUND_EXT_URI . 'js/custom-backgrounds.min.js', array( 'wp-color-picker', 'media-views' ), '20130926', true );
 
 		wp_localize_script(
 			'cbe-custom-background-extended',
