@@ -1,4 +1,4 @@
-# Custom Backgrounds #
+# Custom Background Extended #
 
 Create custom backgrounds on a per-post basis.
 
@@ -12,8 +12,8 @@ This plugin creates a custom meta box on the edit post screen.  From that point,
 
 ## Installation ##
 
-1. Upload the `custom-backgrounds` folder to your `/wp-content/plugins/` directory.
-2. Activate the "Custom Backgrounds" plugin through the "Plugins" menu in WordPress.
+1. Upload the `custom-background-extended` folder to your `/wp-content/plugins/` directory.
+2. Activate the "Custom Background Extended" plugin through the "Plugins" menu in WordPress.
 3. Edit a post to add a custom background.
 
 ## Frequently Asked Questions ##
