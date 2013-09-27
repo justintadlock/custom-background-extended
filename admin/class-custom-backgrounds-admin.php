@@ -219,7 +219,7 @@ final class CBE_Custom_Backgrounds_Admin {
 
 		<!-- Begin background image. -->
 		<p>
-			<a href="#" class="cbe-add-media cbe-add-media-img"><img class="cbe-background-image-url" src="<?php echo esc_url( $url ); ?>" style="max-width: 100%; display: block;" /></a>
+			<a href="#" class="cbe-add-media cbe-add-media-img"><img class="cbe-background-image-url" src="<?php echo esc_url( $url ); ?>" style="max-width: 100%; max-height: 200px; display: block;" /></a>
 			<a href="#" class="cbe-add-media cbe-add-media-text"><?php _e( 'Set background image', 'custom-background-extended' ); ?></a> 
 			<a href="#" class="cbe-remove-media"><?php _e( 'Remove background image', 'custom-background-extended' ); ?></a>
 		</p>
