@@ -41,6 +41,9 @@ final class CBE_Custom_Backgrounds_Admin {
 	 */
 	public function __construct() {
 
+		/* Custom meta for plugin on the plugins admin screen. */
+		add_filter( 'plugin_row_meta', array( $this, 'plugin_row_meta' ), 10, 2 );
+
 		/* If the current user can't edit custom backgrounds, bail early. */
 		if ( !current_user_can( 'cbe_edit_background' ) && !current_user_can( 'edit_theme_options' ) )
 			return;
@@ -359,7 +362,26 @@ final class CBE_Custom_Backgrounds_Admin {
 			elseif ( '' == $new_meta_value && $meta_value )
 				delete_post_meta( $post_id, $meta_key, $meta_value );
 		}
+	}
 
+	/**
+	 * Adds support, rating, and donation links to the plugin row meta on the plugins admin screen.
+	 *
+	 * @since  0.1.0
+	 * @access public
+	 * @param  array  $meta
+	 * @param  string $file
+	 * @return array
+	 */
+	public function plugin_row_meta( $meta, $file ) {
+
+		if ( preg_match( '/custom-background-extended\.php/i', $file ) ) {
+			$meta[] = '<a href="http://themehybrid.com/support">' . __( 'Plugin support', 'custom-background-extended' ) . '</a>';
+			$meta[] = '<a href="http://wordpress.org/plugins/custom-background-extended">' . __( 'Rate plugin', 'custom-background-extended' ) . '</a>';
+			$meta[] = '<a href="http://themehybrid.com/donate">' . __( 'Donate', 'custom-background-extended' ) . '</a>';
+		}
+
+		return $meta;
 	}
 
 	/**
