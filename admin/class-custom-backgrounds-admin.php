@@ -41,6 +41,10 @@ final class CBE_Custom_Backgrounds_Admin {
 	 */
 	public function __construct() {
 
+		/* If the current user can't edit custom backgrounds, bail early. */
+		if ( !current_user_can( 'cbe_edit_background' ) && !current_user_can( 'edit_theme_options' ) )
+			return;
+
 		/* Only load on the edit post screen. */
 		add_action( 'load-post.php',     array( $this, 'load_post' ) );
 		add_action( 'load-post-new.php', array( $this, 'load_post' ) );

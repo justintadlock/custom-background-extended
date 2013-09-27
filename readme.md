@@ -40,6 +40,21 @@ If you're a theme author, consider adding support for this if you can make it fi
 
 	add_theme_support( 'custom-background' );
 
+### Can other users on my site add backgrounds? ###
+
+Some sites have multiple writers/authors who write posts.  However, since custom backgrounds tend to be a design-related option, only administrators have access to altering backgrounds in a default WordPress install.  There is a way around this, which is to give permission by assigning a capability to user roles.
+
+In order to manage capabilities and roles, you need a plugin like [Members](http://wordpress.org/plugins/members), which is a plugin I created for managing sites with multiple users.  It's something you should be using for any site with multiple levels of users (i.e., all users are not admins).  This plugin will allow you to add or create new capabilities for any role.
+
+The capability required for being able to add per-post backgrounds is one of the following:
+
+* `cbe_edit_background` - The user can edit backgrounds on posts they have written.
+* `edit_theme_options` - The user can edit all WordPress theme options (**not** recommended for anyone other than administrators).
+
+Using the Members plugin, you can assign one of the above capabilities to allow other, non-administrator users to edit backgrounds for their posts.
+
+Also, a user must have the `upload_files` capability to upload new images, but this is a WordPress thing and not specific to the plugin.
+
 ### Does it support custom post types? ###
 
 The plugin supports WordPress posts and pages out of the box.
