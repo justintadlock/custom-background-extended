@@ -3,7 +3,7 @@
  * Plugin Name: Custom Background Extended
  * Plugin URI: http://themehybrid.com/plugins/custom-background-extended
  * Description: Allows users to create <a href="http://codex.wordpress.org/Custom_Backgrounds">custom backgrounds</a> for individual posts, which are displayed on the single post page.  It works alongside any theme that supports the WordPress <code>custom-background</code> feature.
- * Version: 0.1.0-beta-2
+ * Version: 0.1.0
  * Author: Justin Tadlock
  * Author URI: http://justintadlock.com
  *
