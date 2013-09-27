@@ -126,7 +126,7 @@ final class CBE_Custom_Backgrounds {
 	public function i18n() {
 
 		/* Load the translation of the plugin. */
-	//	load_plugin_textdomain( 'custom-background-extended', false, 'custom-background-extended/languages' );
+		load_plugin_textdomain( 'custom-background-extended', false, 'custom-background-extended/languages' );
 	}
 
 	/**
